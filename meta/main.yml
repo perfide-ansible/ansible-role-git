@@ -1,0 +1,21 @@
+---
+
+galaxy_info:
+  author: Per H. <github.com/perfide>
+  description: Configure git and clone repos
+  galaxy_tags:
+  - git
+  - gitconfig
+  - gitignore
+  - repo
+  license: BSD-3
+  min_ansible_version: 1.7
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+
+...

@@ -1,0 +1,17 @@
+---
+
+- name: configure ~/.gitconfig
+  git_config:
+    name: "{{ item[0] }}.{{ item[1] }}"
+    scope: global
+    value: "{{ item[2] }}"
+  loop: "{{ lookup('2level_dict', git_config_global) }}"
+  tags: git-global-config
+
+- name: include tasks from repo.yaml
+  include_tasks: repo.yaml git_repo_settings={{ git_repos_settings[git_repo_items['base']] }}
+  with_items: "{{ git_repos_items }}"
+  loop_control:
+    loop_var: git_repo_items
+
+...

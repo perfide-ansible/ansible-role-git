@@ -1,0 +1,12 @@
+---
+
+- name: git
+  hosts: all
+  strategy: free
+  gather_facts: no
+  become: no
+  roles:
+  - role: ansible-role-git
+    tags: git
+
+...

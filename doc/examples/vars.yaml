@@ -1,0 +1,98 @@
+---
+
+git_config_global:
+  push:
+    default: current
+  core:
+    # because of a ansible-bug a path with `~` is always shown as changed
+    #excludesfile: "'~/.gitignore'"
+    excludesfile: /home/luser/.gitignore
+  user:
+    # default user which is being used if no other
+    name: FIXME
+    email: FIX@ME
+  alias:
+    a: add
+    ad: add
+    b: branch
+    br: branch
+    ci: commit
+    co: checkout
+    d: diff
+    di: diff
+    f: fetch
+    fe: fetch
+    rb: rebase
+    rs: reset
+    l: log --graph --decorate
+    lno: log --name-only
+    lns: log --name-status
+    lo: log --graph --decorate
+    ls: log --stat
+    pl: pull
+    ps: push
+    s: status
+    st: status
+    t: tag
+    ta: tag
+  branch:
+    autosetuprebase: always
+  pull:
+    rebase: true
+  rebase:
+    autoStash: true
+  receive:
+    denyNonFastForwards: true
+
+# custom variable not part of the role, only used in git_repos_config
+git_repos_base_dir: ~/base/repo
+
+git_repos_config:
+  bibu:
+    config:
+      name: Linux User
+      email: luser@example.com
+    dir: "{{ git_repos_base_dir }}/bibu"
+    url: git+ssh://git@bitbucket.example.com:7999/
+
+  gh-user1:
+    config:
+      name: Github User 1
+      email: ghuser1@example.com
+    dir: "{{ git_repos_base_dir }}/gh-user1"
+    url: 'git@github-user1:'
+
+  gh-user2:
+    config:
+      name: Github User 2
+      email: ghuser2@example.com
+    dir: "{{ git_repos_base_dir }}/gh-user2"
+    url: 'git@github-user2:'
+
+
+git_repos_items:
+- base: bibu
+  project: p1
+  dir: repo-dir
+  repo: repo-name
+
+- base: bibu
+  project: p2
+  repo: repo2
+
+- base: bibu
+  project: p3
+  repo: repo3
+
+- base: gh-user1
+  project: acme
+  repo: secret-application
+  config:
+    name: John Doe
+    email: j.d@example.com
+
+- base: gh-user2
+  project: user2
+  repo: public-stuff
+
+...

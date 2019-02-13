@@ -1,0 +1,35 @@
+---
+
+- name: merge git_config_global_custom
+  set_fact:
+    git_config_global: "{{ git_config_global | merge_dict(git_config_global_custom) }}"
+  when: git_config_global_custom is defined
+
+- name: debug git_config_global
+  debug:
+    var: git_config_global
+    verbosity: 3
+
+
+- name: merge git_repos_settings_custom
+  set_fact:
+    git_repos_settings: "{{ git_repos_settings | merge_dict(git_repos_settings_custom) }}"
+  when: git_repos_settings_custom is defined
+
+- name: debug git_repos_settings
+  debug:
+    var: git_repos_settings
+    verbosity: 3
+
+
+- name: merge git_repos_items_custom
+  set_fact:
+    git_repos_items: "{{ git_repos_items + git_repos_items_custom }}"
+  when: git_repos_items_custom is defined
+
+- name: debug git_repos_items
+  debug:
+    var: git_repos_items
+    verbosity: 3
+
+...

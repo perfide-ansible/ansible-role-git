@@ -1,5 +1,8 @@
 ---
 
+- name: prepare facts
+  include: facts.yaml
+
 - name: configure ~/.gitconfig
   git_config:
     name: "{{ item[0] }}.{{ item[1] }}"

@@ -6,11 +6,16 @@
     git_repo_path: "{{ git_repo_settings['dir'] }}/{{ git_repo_items['project'] | lower }}/{{ git_repo_items['dir']|default(git_repo_items['repo']) }}"
     git_repo_config: "{{ git_repo_settings['config'] | default({}) | combine(git_repo_items['config'] | default({})) }}"
 
-- name: "repo: clone / update"
-  git:
-    repo: "{{ git_repo_url }}"
-    dest: "{{ git_repo_path }}"
-  tags: git-repo-clone
+- name: "repo: clone / update block"
+  block:
+  - name: "repo: clone / update task"
+    git:
+      repo: "{{ git_repo_url }}"
+      dest: "{{ git_repo_path }}"
+    tags: git-repo-clone
+  rescue:
+  - debug:
+      msg: "Failed to clone or update {{ git_repo_path }}"
 
 - name: "repo: set user-name and email"
   git_config:

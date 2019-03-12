@@ -20,4 +20,8 @@
   loop_control:
     loop_var: git_repo_items
 
+- name: debug git_failed_repos
+  debug:
+    var: git_failed_repos
+
 ...

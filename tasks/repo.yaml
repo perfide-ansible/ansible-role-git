@@ -13,9 +13,18 @@
       repo: "{{ git_repo_url }}"
       dest: "{{ git_repo_path }}"
     tags: git-repo-clone
+    register: git_clone_result
   rescue:
-  - debug:
-      msg: "Failed to clone or update {{ git_repo_path }}"
+  - name: "repo: clone-rescue / debug"
+    debug:
+      msg: "Failed to clone or update {{ git_repo_path }}: {{ git_clone_result['msg'] }}"
+
+  - name: "repo: clone-rescue / append git_failed_repos"
+    set_fact:
+      git_failed_repos: "{{ git_failed_repos + [{
+        'url': git_repo_url,
+        'path': git_repo_path,
+        'msg': git_clone_result['msg']}] }}"
 
 - name: "repo: set user-name and email"
   git_config:

@@ -12,7 +12,10 @@
   tags: git-global-config
 
 - name: include tasks from repo.yaml
-  include_tasks: repo.yaml git_repo_settings={{ git_repos_settings[git_repo_items['base']] }}
+  include_tasks:
+    file: repo.yaml
+  vars:
+    git_repo_settings: "{{ git_repos_settings[git_repo_items['base']] }}"
   with_items: "{{ git_repos_items }}"
   loop_control:
     loop_var: git_repo_items
